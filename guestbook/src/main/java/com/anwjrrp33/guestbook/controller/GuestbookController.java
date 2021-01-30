@@ -9,6 +9,7 @@ import com.anwjrrp33.guestbook.service.GuestbookServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,12 +55,36 @@ public class GuestbookController {
         return "redirect:/guestbook/list";
     }
 
-    @GetMapping("/read")
+    @GetMapping({"/read", "/modify"})
     public void read(Long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
         log.info("gno: " + gno);
 
         GuestbookDTO dto = service.read(gno);
 
         model.addAttribute("dto", dto);
+    }
+
+    @PostMapping("/remove")
+    public String remove(Long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
+        log.info("gno: " + gno);
+
+        service.remove(gno);
+
+        redirectAttributes.addFlashAttribute("msg", gno);
+
+        return "redirect:/guestbook/list";
+    }
+
+    @PostMapping("/modify")
+    public String modify(GuestbookDTO dto, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
+        log.info("post modify..............................");
+        log.info("dto: " + dto);
+
+        service.modify(dto);
+
+        redirectAttributes.addAttribute("page", requestDTO.getPage());
+        redirectAttributes.addAttribute("gno", dto.getGno());
+
+        return "redirect:/guestbook/read";
     }
 }
