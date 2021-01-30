@@ -7,9 +7,11 @@ import com.anwjrrp33.guestbook.entity.Guestbook;
 
 public interface GuestbookService {
 
-    Long register(GuestbookDTO dto);
+    public Long register(GuestbookDTO dto);
 
     public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO);
+
+    public GuestbookDTO read(Long gno);
 
     default Guestbook dtoToEntity(GuestbookDTO dto) {
         Guestbook entity = Guestbook.builder()

@@ -2,12 +2,17 @@ package com.anwjrrp33.guestbook.controller;
 
 import com.anwjrrp33.guestbook.dto.GuestbookDTO;
 import com.anwjrrp33.guestbook.dto.PageRequestDTO;
+import com.anwjrrp33.guestbook.dto.PageResultDTO;
+import com.anwjrrp33.guestbook.entity.Guestbook;
 import com.anwjrrp33.guestbook.service.GuestbookService;
+import com.anwjrrp33.guestbook.service.GuestbookServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Log4j2
 @RequiredArgsConstructor // 자동 주입을 위한 Annotation
 public class GuestbookController {
-    
+
     private final GuestbookService service; // final로 선언
 
     @GetMapping("/")
@@ -47,5 +52,14 @@ public class GuestbookController {
         redirectAttributes.addFlashAttribute("msg", gno);
 
         return "redirect:/guestbook/list";
+    }
+
+    @GetMapping("/read")
+    public void read(Long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
+        log.info("gno: " + gno);
+
+        GuestbookDTO dto = service.read(gno);
+
+        model.addAttribute("dto", dto);
     }
 }
