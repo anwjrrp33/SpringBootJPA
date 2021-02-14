@@ -6,11 +6,13 @@ import com.anwjrrp33.board.dto.PageResultDTO;
 import com.anwjrrp33.board.entity.Board;
 import com.anwjrrp33.board.entity.Member;
 import com.anwjrrp33.board.repository.BoardRepository;
+import com.anwjrrp33.board.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.function.Function;
 
@@ -20,6 +22,8 @@ import java.util.function.Function;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository repository; // 자동 주입 final
+
+    private final ReplyRepository replyRepository; // 새롭게 주가
 
     @Override
     public Long register(BoardDTO dto) {
@@ -52,5 +56,24 @@ public class BoardServiceImpl implements BoardService {
         Object[] arr = (Object[]) result;
 
         return entityToDTO((Board) arr[0], (Member) arr[1] , (Long) arr[2]);
+    }
+
+    @Transactional
+    @Override
+    public void removeWithReplies(Long bno) { // 삭제 기능 구현, 트랜잭션 주가
+        // 댓글부터 삭제
+        replyRepository.deleteByBno(bno);
+        repository.deleteById(bno);
+    }
+
+    @Transactional
+    @Override
+    public void modify(BoardDTO boardDTO) {
+        Board board = repository.getOne(boardDTO.getBno());
+
+        board.changeTitle(boardDTO.getTitle());
+        board.changeContent(boardDTO.getContent());
+
+        repository.save(board);
     }
 }

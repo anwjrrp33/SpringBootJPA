@@ -25,7 +25,7 @@ public class BoardServiceTests {
 
     @Test
     public void testList() {
-        //1페이지 10개
+        // 1페이지 10개
         PageRequestDTO pageRequestDTO = new PageRequestDTO();
 
         PageResultDTO<BoardDTO, Object[]> result = boardService.getList(pageRequestDTO);
@@ -42,5 +42,23 @@ public class BoardServiceTests {
         BoardDTO boardDTO = boardService.get(bno);
 
         System.out.println(boardDTO);
+    }
+
+    @Test
+    public void testRemove() {
+        Long bno = 1L;
+
+        boardService.removeWithReplies(bno);
+    }
+
+    @Test
+    public void testModify() {
+        BoardDTO boardDTO = BoardDTO.builder()
+                .bno(2L)
+                .title("제목 변경합니다.")
+                .content("내용 변경합니다.")
+                .build();
+
+        boardService.modify(boardDTO);
     }
 }

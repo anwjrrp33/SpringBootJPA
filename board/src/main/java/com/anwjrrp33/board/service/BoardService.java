@@ -10,6 +10,14 @@ public interface BoardService {
 
     Long register(BoardDTO dto);
 
+    PageResultDTO<BoardDTO, Object[] > getList(PageRequestDTO pageRequestDTO);
+
+    BoardDTO get(Long bno);
+
+    void removeWithReplies(Long bno); // 삭제 기능
+
+    void modify(BoardDTO boardDTO);
+
     default Board dtoToEntity(BoardDTO dto){
         Member member = Member.builder().email(dto.getWriterEmail()).
                 build();
@@ -36,8 +44,4 @@ public interface BoardService {
                 .build();
         return boardDTO;
     }
-
-    PageResultDTO<BoardDTO, Object[] > getList(PageRequestDTO pageRequestDTO);
-
-    BoardDTO get(Long bno);
 }
