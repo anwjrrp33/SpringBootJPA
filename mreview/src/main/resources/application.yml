@@ -1,9 +1,10 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/ex1
+    url: jdbc:h2:tcp://localhost/~/ex1;mode=maria
     username: sa
     password:
     driver-class-name: org.h2.Driver
+
 
   jpa:
     hibernate:
