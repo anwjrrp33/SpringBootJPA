@@ -22,3 +22,9 @@ spring:
       location: C:\\upload
       max-request-size: 30MB
       max-file-size: 10MB
+
+
+com:
+  anwjrrp33:
+    upload:
+      path: C:\\upload
