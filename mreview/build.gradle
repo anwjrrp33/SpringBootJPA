@@ -33,6 +33,7 @@ dependencies {
 
     runtimeOnly 'com.h2database:h2'
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
+    compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.12'
 }
 
 test {
