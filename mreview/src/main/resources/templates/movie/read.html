@@ -160,7 +160,6 @@
 
 
                 $('.reviewSaveBtn').click(function () {
-
                     var data = {mno: mno, grade: grade, text: inputText.val(), mid: inputMid.val()};
 
                     console.log(data);
@@ -172,15 +171,11 @@
                         contentType: "application/json; charset=utf-8",
                         dataType: "text",
                         success: function (result) {
-
                             console.log("result: " + result);
-
                             self.location.reload();
-
                         }
-                    })
+                    });
                     reviewModal.modal('hide');
-
                 });
 
                 // 페이지가 열리면 바로 리뷰 데이터들을 가져와서 사용한다.
@@ -220,10 +215,8 @@
                 var reviewnum;
 
                 $(".reviewList").on("click", ".card-body", function () {
-
                     $(".reviewSaveBtn").hide();
                     $(".removeBtn , .modifyBtn").show();
-
 
                     var targetReview = $(this);
 
@@ -263,12 +256,11 @@
                             self.location.reload();
 
                         }
-                    })
+                    });
                     reviewModal.modal('hide');
                 });
 
                 $(".removeBtn").on("click", function () {
-
                     var data = {reviewnum: reviewnum};
 
                     console.log(data);
@@ -285,7 +277,7 @@
                             self.location.reload();
 
                         }
-                    })
+                    });
                     reviewModal.modal('hide');
                 });
 
@@ -294,10 +286,8 @@
 
                     console.log(file);
 
-                    $('.imageModal .modal-body').html("<img style='width:100%' src='/display?fileName=" + file + "&size=1' >")
-
+                    $('.imageModal .modal-body').html("<img style='width:100%' src='/display?fileName=" + file + "&size=1' >");
                     $(".imageModal").modal("show");
-
                 });
             });
         </script>
