@@ -1,5 +1,6 @@
 package com.anwjrrp33.club.security;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -42,5 +43,12 @@ public class ClubMemberTests {
 			}
 			repository.save(clubMember);
 		});
+	}
+
+	@Test
+	public void testRead() {
+		Optional<ClubMember> result = repository.findByEmail("user95@anwjrrp33.com", false);
+		ClubMember clubMember = result.get();
+		System.out.println(clubMember);
 	}
 }
