@@ -1,7 +1,11 @@
 package com.anwjrrp33.club.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +33,13 @@ public class NoteController {
 		Long num = noteService.register(noteDTO);
 
 		return new ResponseEntity<>(num, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/{num}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<NoteDTO> read(@PathVariable("num") Long num) {
+		log.info("------------------read------------------");
+		log.info(num);
+
+		return new ResponseEntity<>(noteService.get(num), HttpStatus.OK);
 	}
 }
