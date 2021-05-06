@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.anwjrrp33.club.security.filter.ApiCheckFilter;
 import com.anwjrrp33.club.security.filter.ApiLoginFilter;
+import com.anwjrrp33.club.security.handler.ApiLoginFailHandler;
 import com.anwjrrp33.club.security.handler.ClubLoginSuccessHandler;
 import com.anwjrrp33.club.security.service.ClubUserDetailsService;
 
@@ -66,6 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public ApiLoginFilter apiLoginFilter() throws Exception {
 		ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
 		apiLoginFilter.setAuthenticationManager(authenticationManager());;
+
+		apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
 
 		return apiLoginFilter;
 	}
