@@ -2,7 +2,7 @@
 <br/>
 ![l9791189184070](https://user-images.githubusercontent.com/38122225/112097987-53394a80-8be4-11eb-89ca-17ab589c064c.jpg)
 
-[Part 1. 스프링 부트 도전하기]()
+Part 1. 스프링 부트 도전하기
 
 [Part 2. Spring MVC/JPA/Thymeleaf 연습](https://github.com/anwjrrp33/SpringBootJPA/tree/master/guestbook)
 
