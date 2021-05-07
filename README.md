@@ -1,6 +1,6 @@
 # 코드로 배우는 스프링 부트 웹 프로젝트(구멍가게 코딩단) #
 
-Part 1. 스프링 부트 도전하기
+### Part 1. 스프링 부트 도전하기 ###
 
 [Part 2. Spring MVC/JPA/Thymeleaf 연습](./guestbook)
 
