@@ -1,6 +1,7 @@
 package com.anwjrrp33.club.security.filter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -13,13 +14,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
+import com.anwjrrp33.club.security.dto.ClubAuthMemberDTO;
+import com.anwjrrp33.club.security.util.JWTUtil;
+
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-	public ApiLoginFilter(String defaultFilterProcessesUrl) {
+	private JWTUtil jwtUtil;
+
+	public ApiLoginFilter(String defaultFilterProcessesUrl, JWTUtil jwtUtil) {
 		super(defaultFilterProcessesUrl);
+		this.jwtUtil = jwtUtil;
 	}
 
 	@Override
@@ -45,6 +52,20 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
 		log.info("---------------------ApiLoginFilter---------------------");
 		log.info("successfulAuthentication: " + authResult);
 		log.info(authResult.getPrincipal());
-	}
 
+		// email address
+		String email = ((ClubAuthMemberDTO) authResult.getPrincipal()).getUsername();
+		String token = null;
+
+		try {
+			token = jwtUtil.generateToken(email);
+
+			response.setContentType("text/plain");
+			response.getOutputStream().write(token.getBytes());
+
+			log.info(token);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -18,6 +18,7 @@ import com.anwjrrp33.club.security.filter.ApiLoginFilter;
 import com.anwjrrp33.club.security.handler.ApiLoginFailHandler;
 import com.anwjrrp33.club.security.handler.ClubLoginSuccessHandler;
 import com.anwjrrp33.club.security.service.ClubUserDetailsService;
+import com.anwjrrp33.club.security.util.JWTUtil;
 
 @Configuration
 @Log4j2
@@ -65,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public ApiLoginFilter apiLoginFilter() throws Exception {
-		ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login");
+		ApiLoginFilter apiLoginFilter = new ApiLoginFilter("/api/login", jwtUtil());
 		apiLoginFilter.setAuthenticationManager(authenticationManager());;
 
 		apiLoginFilter.setAuthenticationFailureHandler(new ApiLoginFailHandler());
@@ -75,7 +76,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public ApiCheckFilter apiCheckFilter() {
-		return new ApiCheckFilter("/notes/**/*");
+		return new ApiCheckFilter("/notes/**/*", jwtUtil());
 	}
 
+	@Bean
+	public JWTUtil jwtUtil() {
+		return new JWTUtil();
+	}
 }

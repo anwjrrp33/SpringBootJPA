@@ -14,6 +14,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import net.minidev.json.JSONObject;
 
+import com.anwjrrp33.club.security.util.JWTUtil;
+
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -23,9 +25,12 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
 	private String pattern;
 
-	public ApiCheckFilter(String pattern) {
+	private JWTUtil jwtUtil;
+
+	public ApiCheckFilter(String pattern, JWTUtil jwtUtil) {
 		this.antPathMatcher = new AntPathMatcher();
 		this.pattern = pattern;
+		this.jwtUtil = jwtUtil;
 	}
 
 	@Override
@@ -67,10 +72,15 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
 		String authHeader = request.getHeader("Authorization");
 
-		if(StringUtils.hasText(authHeader)) {
+		if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
 			log.info("Authorization exist: " + authHeader);
-			if(authHeader.equals("12345678")) {
-				checkResult = true;
+
+			try {
+				String email = jwtUtil.validateAndExtract(authHeader.substring(7));
+				log.info("validate result: " + email);
+				checkResult = email.length() > 0;
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
 		}
 
