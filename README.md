@@ -4,7 +4,9 @@
 
 Part 1. 스프링 부트 도전하기
 
-[Part 2. Spring MVC/JPA/Thymeleaf 연습](https://github.com/anwjrrp33/SpringBootJPA/tree/master/guestbook)
+[Part 2. Spring MVC/JPA/Thymeleaf 연습](./SpringBootJPA/guestbook)
+
+https://github.com/anwjrrp33/SpringBootJPA/tree/master/guestbook
 
 [Part 3. N:1(다대일 관계) 처리하기](https://github.com/anwjrrp33/SpringBootJPA/tree/master/board)
 
