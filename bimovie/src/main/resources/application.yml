@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost/bootex
+    username: bootuser
+    password: bootuser
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl_auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+  thymeleaf:
+    cache : false
+
+  servlet:
+    multipart:
+      enabled: true
+      location: C:\\upload
+      max-request-size: 30MB
+      max-file-size: 10MB
+
+  profiles:
+    include: oauth
+
+com:
+  anwjrrp33:
+    upload:
+      path: C:\\upload
+
+logging:
+  level:
+    org.springframework.security: debug
+    com.anwjrrp33.security: debug
+
+
