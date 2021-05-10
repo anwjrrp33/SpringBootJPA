@@ -26,6 +26,15 @@ spring:
   profiles:
     include: oauth
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 110553791694-53iv3u3p3trtjb2sn5nqblemkh9m8i2q.apps.googleusercontent.com
+            clientSecret: GPbn_CYJb2YT2sSdui0hpsFd
+            scope: email
+
 com:
   anwjrrp33:
     upload:
